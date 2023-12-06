@@ -16,51 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-        Category::truncate();
-        Post::truncate();
-
-        $user = User::factory()->create();
-
-        $personal = Category::create([
-            'name' => 'Personal',
-            'slug' => 'personal',
+        $user = User::factory()->create([
+            'name' => 'John Doe',
         ]);
-
-        $family = Category::create([
-            'name' => 'Family',
-            'slug' => 'family',
-        ]);
-        $work = Category::create([
-            'name' => 'Work',
-            'slug' => 'work',
-        ]);
-
-        Post::create([
+        Post::factory(5)->create([
             'user_id' => $user->id,
-            'category_id' => $personal->id,
-            'title' => 'Personal Post',
-            'slug' => 'personal-post',
-            'excerpt' => '<p>This is my personal post</p>',
-            'body' => '<p>This is my personal post bodyis my personal post bodyis my personal post bodyis my personal post bodyis my personal post bodyis my personal post bodyis my personal post bodyis my personal post bodyis my personal post bodyis my personal post bodyis my personal post bodyis my personal post bodyis my personal post body</p>',
-        ]);
-
-        Post::create([
-            'user_id' => $user->id,
-            'category_id' => $family->id,
-            'title' => 'Family Post',
-            'slug' => 'family-post',
-            'excerpt' => '<p>This is my family post</p>',
-            'body' => '<p>This is my family post body is my family post body is my family post body is my family post body is my family post body is my family post body is my family post body is my family post body is my family post body is my family post body is my family post body is my family post body is my family post body is my family post body</p>',
-        ]);
-
-        Post::create([
-            'user_id' => $user->id,
-            'category_id' => $work->id,
-            'title' => 'Work Post',
-            'slug' => 'work-post',
-            'excerpt' => '<p>This is my work post</p>',
-            'body' => '<p>This is a work post body is a work post body is a work post body is a work post body is a work post body is a work post body is a work post body is a work post body is a work post body is a work post body is a work post body is a work post body is a work post body is a work post body is a work post body is a work post body</p>',
         ]);
     }
 }

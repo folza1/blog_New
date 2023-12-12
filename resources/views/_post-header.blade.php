@@ -21,16 +21,10 @@
 
 
                 @foreach($categories as $category)
-{{--                    {{ ? 'bg-blue-500 text-white' : ''}}--}}
                     <x-dropdown-item
-                        href="/categories/{{ $category->slug }}"
+                        href="/?category={{ $category->slug }}"
                         :active="request()->is('categories/' . $category->slug)"
                     >{{ucwords($category->name)}}</x-dropdown-item>
-
-{{--                    <a href="/categories/{{ $category->slug }}"--}}
-{{--                       class="block text-left px-3 text-sm leading-6 hover:bg-blue-300 focus:bg-blue-300 hover:text-white focus:text-white--}}
-{{--                           "--}}
-{{--                    >{{ ucwords($category->name) }}</a>--}}
                 @endforeach
             </x-dropdown>
         </div>

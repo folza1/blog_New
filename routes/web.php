@@ -20,6 +20,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
+Route::get('ping', function () {
+    $mailchimp = new \MailchimpMarketing\ApiClient();
+
+    $mailchimp->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => 'us21',
+    ]);
+
+    $response = $mailchimp->lists->addListMember('9f29b0fda8', [
+        'email_address' => 'fodorzoltan3171111@gmail.com',
+        'status' => 'subscribed',
+    ]);
+    ddd($response);
+});
+
 Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
 Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');

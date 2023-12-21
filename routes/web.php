@@ -20,7 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
-Route::get('ping', function () {
+Route::post('newsletter', function () {
+
+    request()->validate(['email' => 'required|email']);
+
     $mailchimp = new \MailchimpMarketing\ApiClient();
 
     $mailchimp->setConfig([
@@ -28,11 +31,20 @@ Route::get('ping', function () {
         'server' => 'us21',
     ]);
 
-    $response = $mailchimp->lists->addListMember('9f29b0fda8', [
-        'email_address' => 'fodorzoltan3171111@gmail.com',
-        'status' => 'subscribed',
-    ]);
-    ddd($response);
+    try {
+        $response = $mailchimp->lists->addListMember('9f29b0fda8', [
+            'email_address' => request('email'),
+            'status' => 'subscribed',
+        ]);
+    } catch (\Exception $e) {
+        throw \Illuminate\Validation\ValidationException::withMessages([
+            'email' => 'This email could not be added to our newsletter list.',
+        ]);
+    }
+
+
+    return redirect('/')
+        ->with('success', 'You are now signed up for our newsletter!');
 });
 
 Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store']);

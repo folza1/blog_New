@@ -1,5 +1,7 @@
 ![image](https://github.com/folza1/blog_New/assets/106752284/c6c8121a-04ed-4777-a9ff-eef4983cb919)
 
+Laravel 8 From Scratch Blog Project from Laracasts
+
 **Terminálban:**
 
 cd elérési_út/app
